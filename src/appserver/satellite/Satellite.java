@@ -14,6 +14,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,9 +27,6 @@ import utils.PropertyHandler;
  * or locally from the cache, if a tool got executed before.
  * 
  * FROM ASSIGNMENT 7 DESCRIPTION:
- * 
- * In the series of components that make up our application 
- * server, the satellite server is the most important one.
  * 
  * Satellite servers are actually doing the work of the application 
  * server - the latter only being a way to access satellites. 
@@ -62,7 +60,7 @@ public class Satellite extends Thread {
     private ConnectivityInfo satelliteInfo = new ConnectivityInfo();
     private ConnectivityInfo serverInfo = new ConnectivityInfo();
     private HTTPClassLoader classLoader = null;
-    private Hashtable toolsCache = null;
+    private Hashtable<String, Tool> toolsCache = null;
 
     /**
      * Note: just pass in, and read the application server properties file, 
@@ -75,25 +73,66 @@ public class Satellite extends Thread {
     public Satellite(String satellitePropertiesFile, 
     				 String classLoaderPropertiesFile, 
     				 String serverPropertiesFile) {
-
-        // read this satellite's properties and populate satelliteInfo object,
+    	
+    	// satellite's configuration and properties from file passed in
+    	PropertyHandler satConfig; String satName; int satPort; 
+    	
+    	// server's configuration and properties from file passed in
+    	PropertyHandler serverConfig; String serverName; int serverPort; 
+    	
+    	// class loader's configuration and properties from file passed in
+    	PropertyHandler classConfig; String className; int classPort; 
+    	
+    	
+        // read this SATELLITE'S properties and populate satelliteInfo object,
         // which later on will be sent to the server
-        // ...
+        try {
+        	 // read satellite's properties 
+        	 satConfig = new PropertyHandler(serverPropertiesFile); 
+        	 
+        	 // populate satelliteInfo 
+        	 satName = satConfig.getProperty("NAME");
+        	 satPort = Integer.parseInt(satConfig.getProperty("PORT")); //convert to type int
+        	 
+        } catch (Exception e) {
+        	// no config file
+        	e.printStackTrace(); 
+        	System.exit(1);
+        }
         
-        
-        // read properties of the application server and populate serverInfo object
+        // read properties of the APPLICATION SERVER and populate serverInfo object
         // other than satellites, the as doesn't have a human-readable name, so leave it out
-        // ...
-        
+        try {
+        	 // read server's properties 
+        	 serverConfig = new PropertyHandler(serverPropertiesFile);
+        	 // populate serverInfo 
+        	 serverName = serverConfig.getProperty("NAME");
+        	 serverPort = Integer.parseInt(serverConfig.getProperty("PORT")); //convert to type int
+       	 
+        } catch (Exception e) {
+        	// no config file
+        	e.printStackTrace(); 
+        	System.exit(1);
+        }
         
         // read properties of the code server and create class loader
         // -------------------
-        // ...
-
+        try {
+	       	 // read classLoader's properties 
+	       	 classConfig = new PropertyHandler(classLoaderPropertiesFile);
+	       	 // populate serverInfo 
+	       	 className = classConfig.getProperty("NAME");
+	       	 classPort = Integer.parseInt(classConfig.getProperty("PORT")); //convert to type int
+	      	 
+       } catch (Exception e) {
+	       	// no config file
+	       	e.printStackTrace(); 
+	       	System.exit(1);
+       }
         
         // create tools cache
         // -------------------
-        // ...
+        toolsCache = new HashMap<>(); 
         
     }
 
