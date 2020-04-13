@@ -20,11 +20,42 @@ import java.util.logging.Logger;
 import utils.PropertyHandler;
 
 /**
- * Class [Satellite] Instances of this class represent computing nodes that execute jobs by
- * calling the callback method of tool a implementation, loading the tool's code dynamically over a network
+ * Class [Satellite] Instances of this class represent computing 
+ * nodes that execute jobs by calling the callback method of tool a 
+ * implementation, loading the tool's code dynamically over a network
  * or locally from the cache, if a tool got executed before.
- *
- * @author Dr.-Ing. Wolf-Dieter Otte
+ * 
+ * FROM ASSIGNMENT 7 DESCRIPTION:
+ * 
+ * In the series of components that make up our application 
+ * server, the satellite server is the most important one.
+ * 
+ * Satellite servers are actually doing the work of the application 
+ * server - the latter only being a way to access satellites. 
+ * 
+ * Thus satellites take on Jobs, get the right tool to do the job, 
+ * process the job and get the results back to whoever requested the job to be done.
+ * 
+ * Application server adds value by: 
+ * 		(a) letting the registering happen for satellite servers
+ * 		(b) providing load-balancing based in some policy. 
+ * 
+ * Satellite servers can be run on their own. 
+ * 
+ * ** Concentrate on the satellite server implementation, without getting 
+ * side-tracked by the details and complexity of the overall application server structure.
+ * 
+ * 
+ * TODO: Before you start the whole application, you will first need to MOVE the PlusOne tool consisting of two classes 
+ * in package appserver.job.impl.plusone to the appropriate directory (mimicking the package structure) in the docRoot. 
+ * Make sure to MOVE, otherwise the classes are found prematurely in the class path and won't be loaded over the network through the web server.
+ * 
+ * Then start the webserver, a satellite server and finally the client - in this order. Pay attention to the following:
+ * All three programs need to get access to the correct properties files. The way how I set up the directory structure makes sure that happens. Check that the directories config (which contains the properties files) and also the docRoot are in your NetBeans project at the very same spot as they are in the package that you received.
+ * Now start all three programs, each one of them in their own terminal window (don't start them from the IDE!!!). In each of the three terminal windows, go into the directory where the beginning of the class path for all compiled classes is, which is in build/classes, then start the program you want to run. The command lines, for your convenience, are as follows:
+ * java web/SimpleWebServer ../../config/WebServer.properties
+ * java appserver.satellite.Satellite ../../config/Satellite.Earth.properties ../../config/WebServer.properties ../../config//Server.properties
+ * java appserver.job.impl.plusone.PlusOneClient ../../config/Satellite.Earth.properties
  */
 public class Satellite extends Thread {
 
@@ -33,7 +64,17 @@ public class Satellite extends Thread {
     private HTTPClassLoader classLoader = null;
     private Hashtable toolsCache = null;
 
-    public Satellite(String satellitePropertiesFile, String classLoaderPropertiesFile, String serverPropertiesFile) {
+    /**
+     * Note: just pass in, and read the application server properties file, 
+     * as you will not want to change the satellite server's constructor
+     * 
+     * @param satellitePropertiesFile
+     * @param classLoaderPropertiesFile
+     * @param serverPropertiesFile
+     */
+    public Satellite(String satellitePropertiesFile, 
+    				 String classLoaderPropertiesFile, 
+    				 String serverPropertiesFile) {
 
         // read this satellite's properties and populate satelliteInfo object,
         // which later on will be sent to the server
@@ -59,7 +100,7 @@ public class Satellite extends Thread {
     @Override
     public void run() {
 
-        // register this satellite with the SatelliteManager on the server
+        // IGNORE: register this satellite with the SatelliteManager on the server
         // ---------------------------------------------------------------
         // ...
         
