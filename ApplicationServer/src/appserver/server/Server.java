@@ -12,9 +12,12 @@ import java.net.Socket;
 import java.util.Properties;
 import utils.PropertyHandler;
 
-/**
+/** ASSIGNMENT 8: APPLICATION SERVER - APPLICATION SERVER
+	 * 	@author Chloe Bates 	
+	 * 	@author Sam Gilb	
+	 * 	@author Colton Spector
  *
- * @author Dr.-Ing. Wolf-Dieter Otte
+ * 
  */
 public class Server {
 
