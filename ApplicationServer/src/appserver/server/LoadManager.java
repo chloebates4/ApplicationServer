@@ -6,7 +6,11 @@ import java.util.ArrayList;
 	 * 	@author Chloe Bates 	
 	 * 	@author Sam Gilb	
 	 * 	@author Colton Spector
- *
+ * This manager can potentially implement any load balancing policy. It responds 
+ * to requests from the application server asking for the next satellite to do 
+ * a job. For simplicity, I want you to implement a "round-robin" policy. 
+ * Whenever a satellite server registers with the client, the load manager is 
+ * also informed, so that it knows about the existence of the new satellite server.
  * 
  */
 public class LoadManager {
@@ -20,7 +24,9 @@ public class LoadManager {
 
     public void satelliteAdded(String satelliteName) {
         // add satellite
-        // ...
+        satellites.add(satelliteName); 
+        System.out.println("[LoadManager.satelliteAdded] Satellite " 
+                            + satelliteName + " is now added."); 
     }
 
 
