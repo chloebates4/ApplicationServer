@@ -56,11 +56,39 @@ public class PlusOneClient implements MessageTypes{
             ObjectInputStream readFromNet = new ObjectInputStream(server.getInputStream());
             Integer result = (Integer) readFromNet.readObject();
             System.out.println("RESULT: " + result);
+            // Call to Fibonacci Method
+            fib(47);
         } catch (Exception ex) {
             System.err.println("[PlusOneClient.run] Error occurred");
             ex.printStackTrace();
         }
     }
+    
+    //Fibonacci Series using Recursion 
+    static int fib(int n) 
+    { 
+        /* Declare an array to store Fibonacci numbers. */
+        int f[] = new int[n+2]; // 1 extra to handle case, n = 0 
+        int i; 
+
+        /* 0th and 1st number of the series are 0 and 1*/
+        int j = 0;
+        f[0] = 0; 
+        f[1] = 1; 
+        System.out.println("Fiboonacci of " + j + " is " + f[0]);
+        j++;
+        System.out.println("Fiboonacci of " + j + " is " + f[1]);
+        j++;
+        for (i = 2; i <= n; i++) 
+        { 
+           /* Add the previous 2 numbers in the series 
+             and store it */
+            f[i] = f[i-1] + f[i-2]; 
+            System.out.println("Fiboonacci of " + j + " is " + f[i]);
+            j++;
+        } 
+        return f[n]; 
+      } 
 
     public static void main(String[] args) {
         
