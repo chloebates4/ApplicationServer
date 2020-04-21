@@ -1,6 +1,6 @@
 # ApplicationServer
 
-To run: 
+### To run: 
 ```bash
 --> Make sure you're running from ApplicationServer/build/classes/
 Each in a separate terminal: 
@@ -15,6 +15,7 @@ $ java appserver.satellite.Satellite ../../config/Satellite.Earth.properties ../
 $ java appserver.job.impl.PlusOneClient 
 ```
 
+### Errors
 
 If you get this error while trying to run SimpleWebServer: 
 ```bash
